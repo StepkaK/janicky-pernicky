@@ -170,6 +170,61 @@
                     </div>
                 </div>
 
+                <div class="col-6 col-md-4 col-lg-3 gallery-box vanocni">
+                    <div class="gallery-item" onclick="openModal('photos/Vanoce/pernicky-vanocni-PF-1.webp', 'Novoroční perníkové PF 1')">
+                        <img src="photos/Vanoce/pernicky-vanocni-PF-1.webp" alt="Novoroční perníkové PF 1" loading="lazy">
+                        <div class="gallery-caption">Novoroční perníkové PF</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 gallery-box vanocni">
+                    <div class="gallery-item" onclick="openModal('photos/Vanoce/pernicky-vanocni-PF-2.webp', 'Novoroční perníkové PF 2')">
+                        <img src="photos/Vanoce/pernicky-vanocni-PF-2.webp" alt="Novoroční perníkové PF 2" loading="lazy">
+                        <div class="gallery-caption">Novoroční perníkové PF</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 gallery-box vanocni">
+                    <div class="gallery-item" onclick="openModal('photos/Vanoce/pernicky-vanocni-PF-3.webp', 'Novoroční perníkové PF 3')">
+                        <img src="photos/Vanoce/pernicky-vanocni-PF-3.webp" alt="Novoroční perníkové PF 3" loading="lazy">
+                        <div class="gallery-caption">Novoroční perníkové PF</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 gallery-box vanocni">
+                    <div class="gallery-item" onclick="openModal('photos/Vanoce/pernicky-vanocni-PF-5.webp', 'Novoroční perníkové PF 5')">
+                        <img src="photos/Vanoce/pernicky-vanocni-PF-5.webp" alt="Novoroční perníkové PF 5" loading="lazy">
+                        <div class="gallery-caption">Novoroční perníkové PF</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 gallery-box vanocni">
+                    <div class="gallery-item" onclick="openModal('photos/Vanoce/pernicky-vanocni-PF-6.webp', 'Novoroční perníkové PF 6')">
+                        <img src="photos/Vanoce/pernicky-vanocni-PF-6.webp" alt="Novoroční perníkové PF 6" loading="lazy">
+                        <div class="gallery-caption">Novoroční perníkové PF</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 gallery-box vanocni">
+                    <div class="gallery-item" onclick="openModal('photos/Vanoce/pernicky-vanocni-PF-8.webp', 'Novoroční perníkové PF 8')">
+                        <img src="photos/Vanoce/pernicky-vanocni-PF-8.webp" alt="Novoroční perníkové PF 8" loading="lazy">
+                        <div class="gallery-caption">Novoroční perníkové PF</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 gallery-box vanocni">
+                    <div class="gallery-item" onclick="openModal('photos/Vanoce/pernicky-vanocni-PF-9.webp', 'Novoroční perníkové PF 9')">
+                        <img src="photos/Vanoce/pernicky-vanocni-PF-9.webp" alt="Novoroční perníkové PF 9" loading="lazy">
+                        <div class="gallery-caption">Novoroční perníkové PF</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 gallery-box vanocni">
+                    <div class="gallery-item" onclick="openModal('photos/Vanoce/pernicky-vanocni-PF-11.webp', 'Novoroční perníkové PF 11')">
+                        <img src="photos/Vanoce/pernicky-vanocni-PF-11.webp" alt="Novoroční perníkové PF 11" loading="lazy">
+                        <div class="gallery-caption">Novoroční perníkové PF</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 gallery-box vanocni">
+                    <div class="gallery-item" onclick="openModal('photos/Vanoce/pernicky-vanocni-PF-13.webp', 'Novoroční perníkové PF 13')">
+                        <img src="photos/Vanoce/pernicky-vanocni-PF-13.webp" alt="Novoroční perníkové PF 13" loading="lazy">
+                        <div class="gallery-caption">Novoroční perníkové PF</div>
+                    </div>
+                </div>
+
                 <!-- Velikonoční fotografie -->
                 <div class="col-6 col-md-4 col-lg-3 gallery-box velikonoce">
                     <div class="gallery-item" onclick="openModal('photos/Velikonoce/pernicky-velikonocni-vyzdoba.webp', 'Velikonoční perníčky')">
@@ -291,6 +346,11 @@
             if (swipeDistance > 0) showPreviousImage();
             else showNextImage();
         }, { passive: true });
+
+        const requestedCategory = new URLSearchParams(window.location.search).get('kategorie');
+        const hasCategoryFilter = [...document.querySelectorAll('.btn-filter')]
+            .some(button => button.getAttribute('onclick') === `filterGallery('${requestedCategory}')`);
+        if (hasCategoryFilter) filterGallery(requestedCategory);
     </script>
 </body>
 </html>
