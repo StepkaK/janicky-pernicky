@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark" aria-label="Hlavní navigace">
+    <div class="container">
+        <a class="navbar-brand font-rucnipsane" href="{{ '/' | relative_url }}#domu">
+            Janiččiny <span>Perníčky</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Otevřít navigaci">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link{% if page.url == '/' %} active{% endif %}" href="{{ '/' | relative_url }}#domu"{% if page.url == '/' %} aria-current="page"{% endif %}>Domů</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ '/' | relative_url }}#vyrobky">Výrobky</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link{% if page.url == '/galerie.html' %} active{% endif %}" href="{{ '/galerie.html' | relative_url }}"{% if page.url == '/galerie.html' %} aria-current="page"{% endif %}>Galerie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ '/' | relative_url }}#kontakt">Kontakt &amp; Zakázky</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
