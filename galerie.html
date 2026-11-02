@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotogalerie perníčků – Janiččiny Perníčky</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --barva-hneda-tmava: #42281d;
+            --barva-hneda-pernik: #6d4228;
+            --barva-oranzova: #d97724;
+            --barva-oranzova-hover: #b85f18;
+            --barva-kremova: #fff9f2;
+            --barva-kremova-tmavsi: #f5ece1;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--barva-kremova);
+            color: #333;
+        }
+
+        .font-rucnipsane { font-family: 'Caveat', cursive; }
+
+        /* Navigace */
+        .navbar {
+            background-color: var(--barva-hneda-tmava);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .navbar-brand { font-size: 1.8rem; color: #fff !important; font-weight: 600; }
+        .navbar-brand span { color: var(--barva-oranzova); }
+        .nav-link { color: #e6d3c5 !important; font-size: 1.05rem; margin: 0 5px; }
+        .nav-link:hover, .nav-link.active { color: var(--barva-oranzova) !important; }
+
+        /* Tlačítka filtrů */
+        .btn-filter {
+            background-color: white;
+            border: 2px solid var(--barva-hneda-pernik);
+            color: var(--barva-hneda-pernik);
+            border-radius: 25px;
+            padding: 8px 20px;
+            margin: 4px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-filter:hover, .btn-filter.active {
+            background-color: var(--barva-oranzova);
+            border-color: var(--barva-oranzova);
+            color: white;
+        }
+
+        /* Galerie fotek */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            cursor: pointer;
+            background: white;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(66, 40, 29, 0.85));
+            color: white;
+            padding: 15px 10px 10px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        footer {
+            background-color: var(--barva-hneda-tmava);
+            color: #d1c2b7;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Horní navigační lišta -->
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand font-rucnipsane" href="index.html">
+                Janiččiny <span>Perníčky</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Domů</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#vyrobky">Přehled výrobků</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="galerie.html">Kompletní Galerie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#kontakt">Kontakt</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Nadpis Galerie -->
+    <section class="py-5 text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold" style="color: var(--barva-hneda-tmava);">Galerie mé práce</h1>
+            <p class="lead text-muted max-w-600 mx-auto">
+                Prohlédněte si ukázky ručně pečených a zdobených perníčků. Můžete filtrovat podle příležitosti.
+            </p>
+
+            <!-- Filtrovací tlačítka -->
+            <div class="mt-4">
+                <button class="btn btn-filter active" onclick="filterGallery('vse')">Všechny fotky</button>
+                <button class="btn btn-filter" onclick="filterGallery('svatby')">Svatby & Oslavy</button>
+                <button class="btn btn-filter" onclick="filterGallery('vanocni')">Vánoční</button>
+                <button class="btn btn-filter" onclick="filterGallery('detske')">Dětské & Narozeniny</button>
+                <button class="btn btn-filter" onclick="filterGallery('vyroci')">Výročí & Z lásky</button>
+                <button class="btn btn-filter" onclick="filterGallery('firemni')">Firemní balíčky</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mřížka fotografií -->
+    <section class="pb-5">
+        <div class="container">
+            <div class="row g-4" id="gallery-grid">
+                
+                <!-- Fotka 1: Svatba -->
+                <div class="col-6 col-md-4 col-lg-3 gallery-box svatby">
+                    <div class="gallery-item" onclick="openModal('photos/svatebni/svatba-01.webp', 'Svatební srdce na zakázku')">
+                        <img src="photos/svatebni/svatba-01.webp" alt="Svatební perníček">
+                        <div class="gallery-caption">Svatební srdce na zakázku</div>
+                    </div>
+                </div>
+
+                <!-- Fotka 2: Sezónní -->
+                <div class="col-6 col-md-4 col-lg-3 gallery-box sezonni">
+                    <div class="gallery-item" onclick="openModal('photos/sezonnii/vanoce-01.webp', 'Vánoční dárková sada')">
+                        <img src="photos/sezonnii/vanoce-01.webp" alt="Vánoční perníček">
+                        <div class="gallery-caption">Vánoční dárková sada</div>
+                    </div>
+                </div>
+
+                <!-- Fotka 3: Dětské -->
+                <div class="col-6 col-md-4 col-lg-3 gallery-box detske">
+                    <div class="gallery-item" onclick="openModal('photos/detske/narozeniny-01.webp', 'Perníčková zvířátka')">
+                        <img src="photos/detske/narozeniny-01.webp" alt="Dětský perníček">
+                        <div class="gallery-caption">Perníčková zvířátka</div>
+                    </div>
+                </div>
+
+                <!-- SEM PŘIDÁVÁTE DALŠÍ A DALŠÍ FOTKY DLE LIBOSTI -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Modální okno na zvětšení fotky -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="background: transparent; border: none;">
+                <div class="modal-body text-center p-0 position-relative">
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Zavřít" style="z-index: 1055; background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 10px;"></button>
+                    <img id="modalImage" src="" class="img-fluid rounded-3 shadow-lg" alt="Zvětšený detail">
+                    <p id="modalCaption" class="text-white mt-2 fs-5 font-rucnipsane"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patka -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">&copy; Janiččiny Perníčky. Ruční výroba s láskou.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Funkce pro filtrování kategorií
+        function filterGallery(category) {
+            // Úprava aktivního tlačítka
+            const buttons = document.querySelectorAll('.btn-filter');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Zobrazení / Skrytí fotek
+            const items = document.querySelectorAll('.gallery-box');
+            items.forEach(item => {
+                if (category === 'vse' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Funkce pro otevření velké fotky po kliknutí
+        function openModal(imageSrc, captionText) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalCaption').innerText = captionText;
+            var myModal = new bootstrap.Modal(document.getElementById('imageModal'));
+            myModal.show();
+        }
+    </script>
+</body>
+</html>
